@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ChattingViewController.swift
 //  ChattingViewController
 //
 //  Created by Itallo Rossi Lucas on 03/08/17.
@@ -8,9 +8,12 @@
 
 import UIKit
 
-class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    var messages: [String] = ["message01","message02","message03"]
+    var messages: [String] = ["message01, kind of small-ish",
+                              "message02, small",
+                              "message03, woooow such a huge message what is that for? why dont you talk a little bit less... 'cause i dont want to!",
+                              "message04, small? not this time, not this time"]
     
     let inputTextField: UITextField = {
         let textField = UITextField()
@@ -31,6 +34,7 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     func setupInput(){
         let containerView = UIView()
+        containerView.backgroundColor = UIColor.white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(containerView)
         
@@ -77,6 +81,10 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
         inputTextField.text = ""
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        self.collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
@@ -92,8 +100,16 @@ class ViewController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        return CGSize(width: width, height: 80)
+        let height = getFrameForText(content: messages[indexPath.item]).height + 20
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    func getFrameForText(content: String) -> CGRect {
+        let size = CGSize(width: 200, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: content).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
     }
 
 }
-

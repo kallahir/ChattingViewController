@@ -16,6 +16,7 @@ class MessageCell: UICollectionViewCell {
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = UIColor.clear
+        textView.textColor = UIColor.white
         return textView
     }()
     
@@ -25,7 +26,6 @@ class MessageCell: UICollectionViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
