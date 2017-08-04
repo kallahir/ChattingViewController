@@ -11,6 +11,7 @@
 		078CE9AC1F340E560030A068 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9AB1F340E560030A068 /* ViewController.swift */; };
 		078CE9B11F340E560030A068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078CE9B01F340E560030A068 /* Assets.xcassets */; };
 		078CE9B41F340E560030A068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078CE9B21F340E560030A068 /* LaunchScreen.storyboard */; };
+		078CE9BC1F341EBC0030A068 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9BB1F341EBC0030A068 /* MessageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		078CE9B01F340E560030A068 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		078CE9B31F340E560030A068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		078CE9B51F340E560030A068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		078CE9BB1F341EBC0030A068 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				078CE9A91F340E560030A068 /* AppDelegate.swift */,
 				078CE9AB1F340E560030A068 /* ViewController.swift */,
+				078CE9BB1F341EBC0030A068 /* MessageCell.swift */,
 				078CE9B01F340E560030A068 /* Assets.xcassets */,
 				078CE9B21F340E560030A068 /* LaunchScreen.storyboard */,
 				078CE9B51F340E560030A068 /* Info.plist */,
@@ -135,6 +138,7 @@
 			files = (
 				078CE9AC1F340E560030A068 /* ViewController.swift in Sources */,
 				078CE9AA1F340E560030A068 /* AppDelegate.swift in Sources */,
+				078CE9BC1F341EBC0030A068 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
