@@ -12,8 +12,8 @@ class TextMessage: Message {
     
     var msgContent: String!
     
-    init(msgId: String, msgTimestamp: Date, content: String) {
-        super.init(msgId: msgId, msgTimestamp: msgTimestamp)
+    init(msgId: String, msgTimestamp: Date, content: String, userId: String) {
+        super.init(msgId: msgId, msgTimestamp: msgTimestamp, userId: userId)
         self.msgContent = content
     }
     

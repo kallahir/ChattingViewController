@@ -23,11 +23,14 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         return textField
     }()
     
+    var containerViewBottomAnchor: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.backgroundColor = UIColor.white
-        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
+        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.register(MessageCell.self, forCellWithReuseIdentifier: "MessageCell")
         collectionView?.keyboardDismissMode = .interactive
@@ -35,7 +38,33 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         navigationItem.title = "Chatting"
         
         setupInput()
+        setupKeyboard()
         fillTextMessages()
+    }
+    
+    func setupKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardUp), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDown), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func handleKeyboardUp(notification: Notification){
+        if let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect {
+            containerViewBottomAnchor?.constant = -keyboardFrame.height
+            if let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double {
+                UIView.animate(withDuration: duration, animations: { 
+                    self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    
+    func handleKeyboardDown(notification: Notification) {
+        containerViewBottomAnchor?.constant = 0
+        if let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double {
+            UIView.animate(withDuration: duration, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
     }
 
     func setupInput(){
@@ -45,7 +74,8 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         view.addSubview(containerView)
         
         containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        containerViewBottomAnchor?.isActive = true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -79,9 +109,13 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     func send() {
-        textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: inputTextField.text!))
-        collectionView?.reloadData()
-        inputTextField.text = ""
+        if let message = inputTextField.text {
+            if !message.isEmpty {
+                textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: message, userId: "1"))
+                collectionView?.reloadData()
+                inputTextField.text = nil
+            }
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -94,12 +128,26 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCell
-        
-        let message = textMessages[indexPath.item].msgContent
-        cell.textView.text = message
-        cell.bubbleWidth?.constant = getFrameForText(content: message!).width + 32
-        
+        configureCell(cell: cell, message: textMessages[indexPath.item])
         return cell
+    }
+    
+    private func configureCell(cell: MessageCell, message: TextMessage) {
+        cell.textView.text = message.msgContent
+        if message.userId == "1" {
+            cell.bubbleView.backgroundColor = MessageCell.blueBubble
+            cell.textView.textColor = UIColor.white
+            cell.profileImage.isHidden = true
+            cell.bubbleRight?.isActive = true
+            cell.bubbleLeft?.isActive = false
+        } else {
+            cell.bubbleView.backgroundColor = MessageCell.grayBubble
+            cell.textView.textColor = UIColor.black
+            cell.profileImage.isHidden = false
+            cell.bubbleRight?.isActive = false
+            cell.bubbleLeft?.isActive = true
+        }
+        cell.bubbleWidth?.constant = getFrameForText(content: message.msgContent).width + 32
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -110,7 +158,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     func getFrameForText(content: String) -> CGRect {
-        let size = CGSize(width: 240, height: 1000)
+        let size = CGSize(width: 190, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         return NSString(string: content).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
@@ -121,7 +169,17 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     func fillTextMessages() {
         var count = 0
         messages.forEach { (message) in
-            let txtMsg = TextMessage(msgId: "\(count)", msgTimestamp: Date(), content: message)
+            let txtMsg = TextMessage(msgId: "\(count)", msgTimestamp: Date(), content: message, userId: "1")
+            textMessages.append(txtMsg)
+            count += 1
+        }
+        messages.forEach { (message) in
+            let txtMsg = TextMessage(msgId: "\(count)", msgTimestamp: Date(), content: message, userId: "2")
+            textMessages.append(txtMsg)
+            count += 1
+        }
+        messages.forEach { (message) in
+            let txtMsg = TextMessage(msgId: "\(count)", msgTimestamp: Date(), content: message, userId: "1")
             textMessages.append(txtMsg)
             count += 1
         }
