@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074975961F361D5D004F9D34 /* ChattingConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074975951F361D5D004F9D34 /* ChattingConfiguration.swift */; };
 		078CE9AA1F340E560030A068 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9A91F340E560030A068 /* AppDelegate.swift */; };
 		078CE9AC1F340E560030A068 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9AB1F340E560030A068 /* ChattingViewController.swift */; };
 		078CE9B11F340E560030A068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078CE9B01F340E560030A068 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		074975951F361D5D004F9D34 /* ChattingConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChattingConfiguration.swift; sourceTree = "<group>"; };
 		078CE9A61F340E560030A068 /* ChattingViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChattingViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		078CE9A91F340E560030A068 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		078CE9AB1F340E560030A068 /* ChattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			children = (
 				078CE9BE1F34D83D0030A068 /* Message.swift */,
 				078CE9C01F34D8470030A068 /* TextMessage.swift */,
+				074975951F361D5D004F9D34 /* ChattingConfiguration.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 				078CE9AC1F340E560030A068 /* ChattingViewController.swift in Sources */,
 				078CE9BF1F34D83D0030A068 /* Message.swift in Sources */,
 				078CE9AA1F340E560030A068 /* AppDelegate.swift in Sources */,
+				074975961F361D5D004F9D34 /* ChattingConfiguration.swift in Sources */,
 				078CE9BC1F341EBC0030A068 /* MessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

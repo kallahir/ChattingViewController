@@ -46,6 +46,7 @@ class MessageCell: UICollectionViewCell {
     var bubbleWidth: NSLayoutConstraint?
     var bubbleRight: NSLayoutConstraint?
     var bubbleLeft: NSLayoutConstraint?
+    var bubbleLeftNoImage: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,6 +64,9 @@ class MessageCell: UICollectionViewCell {
         bubbleRight?.isActive = true
         bubbleRight?.priority = 500
         bubbleLeft = bubbleView.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 8)
+        bubbleLeft?.priority = 1000
+        bubbleLeftNoImage = bubbleView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8)
+        bubbleLeftNoImage?.priority = 500
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidth = bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidth?.isActive = true

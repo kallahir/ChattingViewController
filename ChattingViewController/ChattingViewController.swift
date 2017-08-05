@@ -150,7 +150,14 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
             cell.textView.textColor = UIColor.black
             cell.profileImage.isHidden = false
             cell.bubbleRight?.isActive = false
-            cell.bubbleLeft?.isActive = true
+            
+            if cell.profileImage.isHidden {
+                cell.bubbleLeft?.isActive = false
+                cell.bubbleLeftNoImage?.isActive = true
+            } else {
+                cell.bubbleLeft?.isActive = true
+                cell.bubbleLeftNoImage?.isActive = false
+            }
         }
         cell.bubbleWidth?.constant = getFrameForText(content: message.msgContent).width + 32
     }
