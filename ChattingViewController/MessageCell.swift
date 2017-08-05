@@ -17,13 +17,16 @@ class MessageCell: UICollectionViewCell {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.backgroundColor = UIColor.clear
         textView.textColor = UIColor.white
+        textView.isEditable = false
         return textView
     }()
     
     let bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.blue
+        view.backgroundColor = UIColor(red: 67/255, green: 168/255, blue: 255/255, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 8
+        view.layer.masksToBounds = true
         return view
     }()
     
@@ -33,14 +36,14 @@ class MessageCell: UICollectionViewCell {
         addSubview(bubbleView)
         addSubview(textView)
         
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        bubbleView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        bubbleView.widthAnchor.constraint(equalToConstant: 250).isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
-        textView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
+        textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        textView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
     

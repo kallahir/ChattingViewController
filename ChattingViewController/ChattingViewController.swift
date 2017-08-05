@@ -76,13 +76,10 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
         separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        print(messages.count)
     }
     
     func send() {
-        print(inputTextField.text ?? "")
-        messages.append(inputTextField.text ?? "")
+        textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: inputTextField.text!))
         collectionView?.reloadData()
         inputTextField.text = ""
     }
@@ -106,13 +103,13 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        let height = getFrameForText(content: messages[indexPath.item]).height + 20
+        let height = getFrameForText(content: textMessages[indexPath.item].msgContent).height + 20
         
         return CGSize(width: width, height: height)
     }
     
     func getFrameForText(content: String) -> CGRect {
-        let size = CGSize(width: 200, height: 1000)
+        let size = CGSize(width: 240, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         return NSString(string: content).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
