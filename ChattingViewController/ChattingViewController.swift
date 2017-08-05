@@ -97,6 +97,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         
         let message = textMessages[indexPath.item].msgContent
         cell.textView.text = message
+        cell.bubbleWidth?.constant = getFrameForText(content: message!).width + 32
         
         return cell
     }

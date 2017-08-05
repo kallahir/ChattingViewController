@@ -30,6 +30,8 @@ class MessageCell: UICollectionViewCell {
         return view
     }()
     
+    var bubbleWidth: NSLayoutConstraint?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,7 +40,8 @@ class MessageCell: UICollectionViewCell {
         
         bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        bubbleView.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        bubbleWidth = bubbleView.widthAnchor.constraint(equalToConstant: 250)
+        bubbleWidth?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
