@@ -1,0 +1,13 @@
+# ChattingViewController
+ChattingViewController is a project that will create a chat framework that can be easily used.
+
+## Known Issues
+
+ - Message cells are behaving unexpectedly when sending messages;
+ - ˚
+
+## Next Steps
+
+ - Refactor bubble view into two separate kinds of cell, one for incoming messages and another for outgoing;
+ - Review all constraints and set correct priorities when needed;
+ - 

@@ -61,6 +61,7 @@ class MessageCell: UICollectionViewCell {
         
         bubbleRight = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
         bubbleRight?.isActive = true
+        bubbleRight?.priority = 500
         bubbleLeft = bubbleView.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 8)
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidth = bubbleView.widthAnchor.constraint(equalToConstant: 200)
