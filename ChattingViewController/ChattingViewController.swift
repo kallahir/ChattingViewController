@@ -40,6 +40,11 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         fillTextMessages()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+    }
+    
     lazy var inputContainerView: UIView = {
         let containerView = UIView()
         containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
@@ -100,11 +105,11 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     func handleKeyboardUp(notification: Notification){
-        // TODO: INSERT EFFECT TO SCROLL TO LAST ITEM
+        print("KEYBOARD UP")
     }
     
     func handleKeyboardDown(notification: Notification) {
-        
+        print("KEYBOARD DOWN")
     }
     
     func send() {
@@ -112,6 +117,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
             if !message.isEmpty {
                 textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: message, userId: "1"))
                 collectionView?.reloadData()
+                collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
                 inputTextField.text = nil
             }
         }
