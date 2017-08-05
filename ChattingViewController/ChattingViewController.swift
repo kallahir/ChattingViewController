@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
     var textMessages: [TextMessage] = []
     var messages: [String] = ["message01, kind of small-ish",
@@ -16,11 +16,15 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                               "message03, woooow such a huge message what is that for? why dont you talk a little bit less... 'cause i dont want to!",
                               "message04, small? not this time, not this time"]
     
-    let inputTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter message..."
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    let inputTextArea: UITextView = {
+        let textArea = UITextView()
+        textArea.translatesAutoresizingMaskIntoConstraints = false
+        textArea.font = UIFont.systemFont(ofSize: 16)
+        textArea.layer.cornerRadius = 8
+        textArea.layer.masksToBounds = true
+        textArea.layer.borderColor = UIColor.lightGray.cgColor
+        textArea.layer.borderWidth = 0.5
+        return textArea
     }()
     
     var containerViewBottomAnchor: NSLayoutConstraint?
@@ -36,7 +40,9 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         
         navigationItem.title = "Chatting"
         
-        setupKeyboard()
+        inputTextArea.delegate = self
+        
+//        setupKeyboard()
         fillTextMessages()
     }
     
@@ -48,25 +54,25 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     lazy var inputContainerView: UIView = {
         let containerView = UIView()
         containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
-        containerView.backgroundColor = UIColor.white
+        containerView.backgroundColor = MessageCell.grayBubble
         
         let sendButton = UIButton(type: .system)
         sendButton.setTitle("Send", for: .normal)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.addTarget(self, action: #selector(send), for: .touchUpInside)
+        sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         containerView.addSubview(sendButton)
         
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        
-        containerView.addSubview(self.inputTextField)
-        
-        self.inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
+ 
+        containerView.addSubview(self.inputTextArea)
+        self.inputTextArea.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        self.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        self.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        self.inputTextArea.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -16).isActive = true
         
         let separatorLineView = UIView()
         separatorLineView.backgroundColor = UIColor.lightGray
@@ -76,7 +82,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        separatorLineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
         
         return containerView
     }()
@@ -113,12 +119,12 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     func send() {
-        if let message = inputTextField.text {
+        if let message = inputTextArea.text {
             if !message.isEmpty {
                 textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: message, userId: "1"))
                 collectionView?.reloadData()
                 collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
-                inputTextField.text = nil
+                inputTextArea.text = nil
             }
         }
     }
@@ -135,6 +141,16 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath) as! MessageCell
         configureCell(cell: cell, message: textMessages[indexPath.item])
         return cell
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: 400)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let frame = NSString(string: textView.text!).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
+        
+        if frame.height > textView.frame.height {
+            // TODO: DISCOVER THE RIGHT LOGIC TO PUT HERE
+        }
     }
     
     private func configureCell(cell: MessageCell, message: TextMessage) {
