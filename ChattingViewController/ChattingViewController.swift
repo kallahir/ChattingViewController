@@ -10,6 +10,7 @@ import UIKit
 
 class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
+    var config: ChattingConfiguration?
     var textMessages: [TextMessage] = []
     var messages: [String] = ["message01, kind of small-ish",
                               "message02, small",
@@ -29,6 +30,15 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
+    init(configuration: ChattingConfiguration) {
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        self.config = configuration
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,7 +48,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         collectionView?.register(MessageCell.self, forCellWithReuseIdentifier: "MessageCell")
         collectionView?.keyboardDismissMode = .interactive
         
-        navigationItem.title = "Chatting"
+        navigationItem.title = self.config?.title
         
         inputTextArea.delegate = self
         
@@ -121,7 +131,8 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     func send() {
         if let message = inputTextArea.text {
             if !message.isEmpty {
-                textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: message, userId: "1"))
+                let cleanMessage = message.trimmingCharacters(in: .whitespacesAndNewlines)
+                textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: cleanMessage, userId: "1"))
                 collectionView?.reloadData()
                 collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
                 inputTextArea.text = nil

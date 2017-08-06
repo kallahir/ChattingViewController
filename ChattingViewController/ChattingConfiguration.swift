@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+class ChattingConfiguration {
+    
+    var title: String?
+    var userImage: Bool?
+    
+    init(title: String, userImage: Bool) {
+        self.title = title
+        self.userImage = userImage
+    }
+    
+}
