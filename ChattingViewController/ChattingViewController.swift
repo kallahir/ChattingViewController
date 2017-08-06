@@ -10,7 +10,7 @@ import UIKit
 
 class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
-    var config: ChattingConfiguration?
+    var config: ChattingConfiguration!
     var textMessages: [TextMessage] = []
     var messages: [String] = ["message01, kind of small-ish",
                               "message02, small",
@@ -172,10 +172,11 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
             cell.profileImage.isHidden = true
             cell.bubbleRight?.isActive = true
             cell.bubbleLeft?.isActive = false
+            cell.bubbleLeftNoImage?.isActive = false
         } else {
             cell.bubbleView.backgroundColor = MessageCell.grayBubble
             cell.textView.textColor = UIColor.black
-            cell.profileImage.isHidden = false
+            cell.profileImage.isHidden = !self.config.showUserImage
             cell.bubbleRight?.isActive = false
             
             if cell.profileImage.isHidden {

@@ -10,12 +10,12 @@ import Foundation
 
 class ChattingConfiguration {
     
-    var title: String?
-    var userImage: Bool?
+    var title: String!
+    var showUserImage: Bool!
     
-    init(title: String, userImage: Bool) {
+    init(title: String, showUserImage: Bool) {
         self.title = title
-        self.userImage = userImage
+        self.showUserImage = showUserImage
     }
     
 }
