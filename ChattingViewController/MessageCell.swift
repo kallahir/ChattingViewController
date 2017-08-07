@@ -43,6 +43,14 @@ class MessageCell: UICollectionViewCell {
         return imageView
     }()
     
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.textColor = UIColor.black
+        return label
+    }()
+    
     var bubbleWidth: NSLayoutConstraint?
     var bubbleRight: NSLayoutConstraint?
     var bubbleLeft: NSLayoutConstraint?
@@ -54,6 +62,7 @@ class MessageCell: UICollectionViewCell {
         addSubview(bubbleView)
         addSubview(textView)
         addSubview(profileImage)
+        addSubview(nameLabel)
         
         profileImage.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImage.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
@@ -72,9 +81,14 @@ class MessageCell: UICollectionViewCell {
         bubbleWidth?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
+        nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
+        nameLabel.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 12).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 12).isActive = true
+        
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
-        textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        textView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
     

@@ -161,12 +161,14 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         
         if frame.height > textView.frame.height {
             // TODO: DISCOVER THE RIGHT LOGIC TO PUT HERE
+            print("TEXTO AUMENTOU")
         }
     }
     
     private func configureCell(cell: MessageCell, message: TextMessage) {
         cell.textView.text = message.msgContent
         if message.userId == "1" {
+            cell.nameLabel.text = "Ned Stark"
             cell.bubbleView.backgroundColor = MessageCell.blueBubble
             cell.textView.textColor = UIColor.white
             cell.profileImage.isHidden = true
@@ -174,6 +176,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
             cell.bubbleLeft?.isActive = false
             cell.bubbleLeftNoImage?.isActive = false
         } else {
+            cell.nameLabel.text = "Jon Snow"
             cell.bubbleView.backgroundColor = MessageCell.grayBubble
             cell.textView.textColor = UIColor.black
             cell.profileImage.isHidden = !self.config.showUserImage
@@ -192,7 +195,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width
-        let height = getFrameForText(content: textMessages[indexPath.item].msgContent).height + 20
+        let height = getFrameForText(content: textMessages[indexPath.item].msgContent).height + 20 + 16
         
         return CGSize(width: width, height: height)
     }

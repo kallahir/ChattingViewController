@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let configuration = ChattingConfiguration(title: "Chatting Title", showUserImage: false)
+        let configuration = ChattingConfiguration(title: "Chatting Title", showUserImage: true)
         window?.rootViewController = UINavigationController(rootViewController: ChattingViewController(configuration: configuration))
         
         return true
