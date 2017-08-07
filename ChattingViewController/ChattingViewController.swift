@@ -133,8 +133,11 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
             if !message.isEmpty {
                 let cleanMessage = message.trimmingCharacters(in: .whitespacesAndNewlines)
                 textMessages.append(TextMessage(msgId: "-1", msgTimestamp: Date(), content: cleanMessage, userId: "1"))
-                collectionView?.reloadData()
-                collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+                
+                let newIndexPath = IndexPath(item: textMessages.count-1, section: 0)
+                collectionView?.insertItems(at: [newIndexPath])
+                collectionView?.scrollToItem(at: newIndexPath, at: UICollectionViewScrollPosition.top, animated: true)
+                
                 inputTextArea.text = nil
             }
         }

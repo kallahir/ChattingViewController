@@ -11,5 +11,5 @@ ChattingViewController is a project that will create a chat framework that can b
 
 ## Known Issues
 
- - Message cells are behaving unexpectedly when sending messages, text color changing;
+ - ~~Message cells are behaving unexpectedly when sending messages, text color changing;~~ [SOLVED]
  - Bubble size sometimes is being set wrong;
