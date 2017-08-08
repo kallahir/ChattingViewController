@@ -20,17 +20,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                               "message03, woooow such a huge message what is that for? why dont you talk a little bit less... 'cause i dont want to!",
                               "message04, small? not this time, not this time"]
     
-    let inputTextArea: UITextView = {
-        let textArea = UITextView()
-        textArea.translatesAutoresizingMaskIntoConstraints = false
-        textArea.font = UIFont.systemFont(ofSize: 16)
-        textArea.layer.cornerRadius = 8
-        textArea.layer.masksToBounds = true
-        textArea.layer.borderColor = UIColor.lightGray.cgColor
-        textArea.layer.borderWidth = 0.5
-        return textArea
-    }()
-    
     var containerViewBottomAnchor: NSLayoutConstraint?
     
     init(configuration: ChattingConfiguration) {
@@ -53,8 +42,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         collectionView?.keyboardDismissMode = .interactive
         
         navigationItem.title = self.config?.title
-        
-        inputTextArea.delegate = self
 
 //        setupKeyboard()
         fillTextMessages()
@@ -85,7 +72,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         
         // MARK: Send button constraints to use with image
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor).isActive = true
+        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: 2).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         sendButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -93,6 +80,8 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         containerView.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         containerView.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor, constant: -8).isActive = true
         containerView.inputTextArea.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -16).isActive = true
+        // TODO: REFACTOR TO REMOVE IT FROM HERE
+        containerView.inputTextArea.delegate = self
 
         let separatorLineView = UIView()
         separatorLineView.backgroundColor = UIColor.lightGray
@@ -164,6 +153,12 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                 inputContainerView.invalidateIntrinsicContentSize()
             }
         }
+    }
+    
+    // TODO: REFACTOR TO REMOVE IT FROM HERE
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        let newIndexPath = IndexPath(item: textMessages.count-1, section: 0)
+        collectionView?.scrollToItem(at: newIndexPath, at: .bottom, animated: true)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
