@@ -70,20 +70,28 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         containerView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         
         let sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: .normal)
+//        sendButton.setTitle("Send", for: .normal)
+//        sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.addTarget(self, action: #selector(send), for: .touchUpInside)
-        sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        sendButton.setBackgroundImage(UIImage(named: "send"), for: .normal)
         containerView.addSubview(sendButton)
+
+        // MARK: Send button constraints to use with text label
+//        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+//        sendButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+//        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+//        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: -2).isActive = true
         
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        // MARK: Send button constraints to use with image
+        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
         sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: -2).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
         
         containerView.inputTextArea.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
         containerView.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        containerView.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        containerView.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor, constant: -8).isActive = true
         containerView.inputTextArea.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -16).isActive = true
 
         let separatorLineView = UIView()

@@ -14,3 +14,4 @@ ChattingViewController is a project that will create a chat framework that can b
 
  - ~~Message cells are behaving unexpectedly when sending messages, text color changing;~~ [SOLVED]
  - Bubble size sometimes is being set wrong;
+ - Multiline message written in the input text area is not moving the collection view up, causing the insertion of a new item in the collection to cause a strange behavior;
