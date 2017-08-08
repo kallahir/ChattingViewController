@@ -17,6 +17,8 @@
 		07F1FC2D1F39215500B5A3A5 /* OutgoingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC2C1F39215500B5A3A5 /* OutgoingMessageCell.swift */; };
 		07F1FC2F1F395C0900B5A3A5 /* IncomingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC2E1F395C0900B5A3A5 /* IncomingMessageCell.swift */; };
 		07F1FC311F39719E00B5A3A5 /* InputAcessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC301F39719E00B5A3A5 /* InputAcessoryView.swift */; };
+		07F1FC331F3A206600B5A3A5 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC321F3A206600B5A3A5 /* InitialViewController.swift */; };
+		07F1FC351F3A20AF00B5A3A5 /* InitialTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC341F3A20AF00B5A3A5 /* InitialTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		07F1FC2C1F39215500B5A3A5 /* OutgoingMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageCell.swift; sourceTree = "<group>"; };
 		07F1FC2E1F395C0900B5A3A5 /* IncomingMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageCell.swift; sourceTree = "<group>"; };
 		07F1FC301F39719E00B5A3A5 /* InputAcessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputAcessoryView.swift; sourceTree = "<group>"; };
+		07F1FC321F3A206600B5A3A5 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
+		07F1FC341F3A20AF00B5A3A5 /* InitialTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				078CE9BD1F34D82A0030A068 /* Model */,
 				07F1FC2B1F39213500B5A3A5 /* Cell */,
 				078CE9A91F340E560030A068 /* AppDelegate.swift */,
+				07F1FC321F3A206600B5A3A5 /* InitialViewController.swift */,
+				07F1FC341F3A20AF00B5A3A5 /* InitialTableCell.swift */,
 				078CE9AB1F340E560030A068 /* ChattingViewController.swift */,
 				07F1FC301F39719E00B5A3A5 /* InputAcessoryView.swift */,
 				078CE9B01F340E560030A068 /* Assets.xcassets */,
@@ -168,12 +174,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				078CE9C11F34D8470030A068 /* TextMessage.swift in Sources */,
+				07F1FC351F3A20AF00B5A3A5 /* InitialTableCell.swift in Sources */,
 				078CE9AC1F340E560030A068 /* ChattingViewController.swift in Sources */,
 				078CE9BF1F34D83D0030A068 /* Message.swift in Sources */,
 				078CE9AA1F340E560030A068 /* AppDelegate.swift in Sources */,
 				074975961F361D5D004F9D34 /* ChattingConfiguration.swift in Sources */,
 				07F1FC2F1F395C0900B5A3A5 /* IncomingMessageCell.swift in Sources */,
 				07F1FC311F39719E00B5A3A5 /* InputAcessoryView.swift in Sources */,
+				07F1FC331F3A206600B5A3A5 /* InitialViewController.swift in Sources */,
 				07F1FC2D1F39215500B5A3A5 /* OutgoingMessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

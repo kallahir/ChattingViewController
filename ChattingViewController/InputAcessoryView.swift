@@ -24,7 +24,7 @@ class InputAccessoryView: UIView, UITextViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.autoresizingMask = UIViewAutoresizing.flexibleHeight
+        self.autoresizingMask = .flexibleHeight
         self.addSubview(self.inputTextArea)
         self.inputTextArea.delegate = self
         self.inputTextArea.isScrollEnabled = false

@@ -55,7 +55,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         navigationItem.title = self.config?.title
         
         inputTextArea.delegate = self
-        
+
 //        setupKeyboard()
         fillTextMessages()
     }
@@ -85,9 +85,9 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         
         // MARK: Send button constraints to use with image
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: -2).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        sendButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor).isActive = true
+        sendButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        sendButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         containerView.inputTextArea.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
         containerView.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
@@ -180,17 +180,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                                  message: textMessages[indexPath.item])
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        let size = CGSize(width: textView.frame.width, height: 400)
-        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let frame = NSString(string: textView.text!).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
-        
-        if frame.height > textView.frame.height {
-            // TODO: DISCOVER THE RIGHT LOGIC TO PUT HERE
-            print("TEXTO AUMENTOU")
-        }
-    }
-    
     private func configureCellType(collectionView: UICollectionView, indexPath: IndexPath, message: TextMessage) -> UICollectionViewCell {
         if message.userId == "1" {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: outgoingCellId, for: indexPath) as! OutgoingMessageCell
@@ -223,7 +212,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         if textMessages[indexPath.item].userId != "1" {
             heightOutgoing = 16
         }
-        
         let height = getFrameForText(content: textMessages[indexPath.item].msgContent).height + 20 + heightOutgoing
         
         return CGSize(width: width, height: height)
