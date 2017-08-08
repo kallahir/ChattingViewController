@@ -3,7 +3,7 @@ ChattingViewController is a project that will create a chat framework that can b
 
 ## TODO List
 
- - Refactor bubble view into two separate kinds of cell, one for incoming messages and another for outgoing;
+ - ~~Refactor bubble view into two separate kinds of cell, one for incoming messages and another for outgoing;~~ [DONE]
  - Review all constraints and set correct priorities when needed;
  - Review the model and create User class and finish the Message strcuture model;
  - Create properties to customize bubble propeties;

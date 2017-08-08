@@ -12,9 +12,10 @@
 		078CE9AC1F340E560030A068 /* ChattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9AB1F340E560030A068 /* ChattingViewController.swift */; };
 		078CE9B11F340E560030A068 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 078CE9B01F340E560030A068 /* Assets.xcassets */; };
 		078CE9B41F340E560030A068 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 078CE9B21F340E560030A068 /* LaunchScreen.storyboard */; };
-		078CE9BC1F341EBC0030A068 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9BB1F341EBC0030A068 /* MessageCell.swift */; };
 		078CE9BF1F34D83D0030A068 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9BE1F34D83D0030A068 /* Message.swift */; };
 		078CE9C11F34D8470030A068 /* TextMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078CE9C01F34D8470030A068 /* TextMessage.swift */; };
+		07F1FC2D1F39215500B5A3A5 /* OutgoingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC2C1F39215500B5A3A5 /* OutgoingMessageCell.swift */; };
+		07F1FC2F1F395C0900B5A3A5 /* IncomingMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F1FC2E1F395C0900B5A3A5 /* IncomingMessageCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,9 +26,10 @@
 		078CE9B01F340E560030A068 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		078CE9B31F340E560030A068 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		078CE9B51F340E560030A068 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		078CE9BB1F341EBC0030A068 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		078CE9BE1F34D83D0030A068 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		078CE9C01F34D8470030A068 /* TextMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextMessage.swift; sourceTree = "<group>"; };
+		07F1FC2C1F39215500B5A3A5 /* OutgoingMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutgoingMessageCell.swift; sourceTree = "<group>"; };
+		07F1FC2E1F395C0900B5A3A5 /* IncomingMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingMessageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +63,9 @@
 			isa = PBXGroup;
 			children = (
 				078CE9BD1F34D82A0030A068 /* Model */,
+				07F1FC2B1F39213500B5A3A5 /* Cell */,
 				078CE9A91F340E560030A068 /* AppDelegate.swift */,
 				078CE9AB1F340E560030A068 /* ChattingViewController.swift */,
-				078CE9BB1F341EBC0030A068 /* MessageCell.swift */,
 				078CE9B01F340E560030A068 /* Assets.xcassets */,
 				078CE9B21F340E560030A068 /* LaunchScreen.storyboard */,
 				078CE9B51F340E560030A068 /* Info.plist */,
@@ -79,6 +81,15 @@
 				074975951F361D5D004F9D34 /* ChattingConfiguration.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		07F1FC2B1F39213500B5A3A5 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				07F1FC2C1F39215500B5A3A5 /* OutgoingMessageCell.swift */,
+				07F1FC2E1F395C0900B5A3A5 /* IncomingMessageCell.swift */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,7 +169,8 @@
 				078CE9BF1F34D83D0030A068 /* Message.swift in Sources */,
 				078CE9AA1F340E560030A068 /* AppDelegate.swift in Sources */,
 				074975961F361D5D004F9D34 /* ChattingConfiguration.swift in Sources */,
-				078CE9BC1F341EBC0030A068 /* MessageCell.swift in Sources */,
+				07F1FC2F1F395C0900B5A3A5 /* IncomingMessageCell.swift in Sources */,
+				07F1FC2D1F39215500B5A3A5 /* OutgoingMessageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
