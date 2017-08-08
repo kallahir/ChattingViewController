@@ -7,7 +7,8 @@ ChattingViewController is a project that will create a chat framework that can b
  - Review all constraints and set correct priorities when needed;
  - Review the model and create User class and finish the Message strcuture model;
  - Create properties to customize bubble propeties;
- - Improve the message insertion area;
+ - ~~Improve the message insertion area;~~ [DONE]
+ - Polish input acessory view used and input text area;
 
 ## Known Issues
 

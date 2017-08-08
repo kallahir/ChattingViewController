@@ -65,9 +65,8 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
     }
     
-    lazy var inputContainerView: UIView = {
-        let containerView = UIView()
-        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+    lazy var inputContainerView: InputAccessoryView = {
+        let containerView = InputAccessoryView()
         containerView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
         
         let sendButton = UIButton(type: .system)
@@ -78,16 +77,15 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         containerView.addSubview(sendButton)
         
         sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        sendButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
- 
-        containerView.addSubview(self.inputTextArea)
-        self.inputTextArea.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        self.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        self.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        self.inputTextArea.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -16).isActive = true
+        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: -2).isActive = true
         
+        containerView.inputTextArea.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        containerView.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        containerView.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
+        containerView.inputTextArea.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -16).isActive = true
+
         let separatorLineView = UIView()
         separatorLineView.backgroundColor = UIColor.lightGray
         separatorLineView.translatesAutoresizingMaskIntoConstraints = false
@@ -139,7 +137,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     func send() {
-        if let message = inputTextArea.text {
+        if let message = inputContainerView.inputTextArea.text {
             if !message.isEmpty {
                 let cleanMessage = message.trimmingCharacters(in: .whitespacesAndNewlines)
                 textMessages.append(TextMessage(msgId: "-1",
@@ -154,7 +152,8 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                                              at: UICollectionViewScrollPosition.top,
                                              animated: true)
                 
-                inputTextArea.text = nil
+                inputContainerView.inputTextArea.text = nil
+                inputContainerView.invalidateIntrinsicContentSize()
             }
         }
     }
