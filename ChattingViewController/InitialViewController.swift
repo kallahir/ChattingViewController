@@ -29,7 +29,7 @@ class InitialViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -38,7 +38,8 @@ class InitialViewController: UITableViewController {
  
     func openChattingView() {
         let configuration = ChattingConfiguration(title: "Chatting Title", showUserImage: true)
-        let chattingView = ChattingViewController(configuration: configuration)
+        let chattingView = ChattingViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        chattingView.config = configuration
         navigationController?.pushViewController(chattingView, animated: true)
     }
     

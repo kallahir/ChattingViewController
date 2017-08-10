@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
+class ChattingViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let incomingCellId = "IncomingMessageCell"
     let outgoingCellId = "OutgoingMessageCell"
@@ -20,80 +20,31 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                               "message03, woooow such a huge message what is that for? why dont you talk a little bit less... 'cause i dont want to!",
                               "message04, small? not this time, not this time"]
     
-    var containerViewBottomAnchor: NSLayoutConstraint?
-    
-    init(configuration: ChattingConfiguration) {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        self.config = configuration
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.backgroundColor = UIColor.white
-        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-        collectionView?.alwaysBounceVertical = true
+        collectionView?.contentInset    = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
+        collectionView?.alwaysBounceVertical    = true
+        collectionView?.keyboardDismissMode     = .interactive
         collectionView?.register(IncomingMessageCell.self, forCellWithReuseIdentifier: incomingCellId)
         collectionView?.register(OutgoingMessageCell.self, forCellWithReuseIdentifier: outgoingCellId)
-        collectionView?.keyboardDismissMode = .interactive
         
         navigationItem.title = self.config?.title
 
 //        setupKeyboard()
         fillTextMessages()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: UICollectionViewScrollPosition.top, animated: true)
+//        collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: .bottom, animated: true)
     }
     
     lazy var inputContainerView: InputAccessoryView = {
-        let containerView = InputAccessoryView()
-        containerView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
-        
-        let sendButton = UIButton(type: .system)
-//        sendButton.setTitle("Send", for: .normal)
-//        sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.addTarget(self, action: #selector(send), for: .touchUpInside)
-        sendButton.setBackgroundImage(UIImage(named: "send"), for: .normal)
-        containerView.addSubview(sendButton)
-
-        // MARK: Send button constraints to use with text label
-//        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-//        sendButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-//        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-//        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: -2).isActive = true
-        
-        // MARK: Send button constraints to use with image
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -8).isActive = true
-        sendButton.bottomAnchor.constraint(equalTo: containerView.inputTextArea.bottomAnchor, constant: 2).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        sendButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        containerView.inputTextArea.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        containerView.inputTextArea.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        containerView.inputTextArea.rightAnchor.constraint(equalTo: sendButton.leftAnchor, constant: -8).isActive = true
-        containerView.inputTextArea.heightAnchor.constraint(equalTo: containerView.heightAnchor, constant: -16).isActive = true
-        // TODO: REFACTOR TO REMOVE IT FROM HERE
-        containerView.inputTextArea.delegate = self
-
-        let separatorLineView = UIView()
-        separatorLineView.backgroundColor = UIColor.lightGray
-        separatorLineView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(separatorLineView)
-        
-        separatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        separatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        separatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        separatorLineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        
-        return containerView
+        let view = InputAccessoryView()
+        view.chattingViewController = self
+        return view
     }()
     
     override var inputAccessoryView: UIView? {
@@ -110,7 +61,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -153,12 +103,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                 inputContainerView.invalidateIntrinsicContentSize()
             }
         }
-    }
-    
-    // TODO: REFACTOR TO REMOVE IT FROM HERE
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        let newIndexPath = IndexPath(item: textMessages.count-1, section: 0)
-        collectionView?.scrollToItem(at: newIndexPath, at: .bottom, animated: true)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
