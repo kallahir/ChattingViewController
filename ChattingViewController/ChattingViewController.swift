@@ -32,13 +32,13 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
         
         navigationItem.title = self.config?.title
 
-//        setupKeyboard()
-        fillTextMessages()
+        self.setupKeyboard()
+        self.fillTextMessages()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: .bottom, animated: true)
+        self.collectionView?.scrollToItem(at: IndexPath(item: textMessages.count-1, section: 0), at: .bottom, animated: true)
     }
     
     lazy var inputContainerView: InputAccessoryView = {
@@ -60,27 +60,19 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
     
     func setupKeyboard() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleKeyboardUp),
-                                               name: NSNotification.Name.UIKeyboardWillShow,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(handleKeyboardDown),
-                                               name: NSNotification.Name.UIKeyboardWillHide,
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     }
     
-    func handleKeyboardUp(notification: Notification){
-        print("KEYBOARD UP")
-    }
-    
-    func handleKeyboardDown(notification: Notification) {
-        print("KEYBOARD DOWN")
+    func keyboardDidShow(){
+        if self.textMessages.count > 0 {
+            let indexPath = IndexPath(item: self.textMessages.count - 1, section: 0)
+            self.collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
     }
     
     func send() {
@@ -96,7 +88,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                 let newIndexPath = IndexPath(item: textMessages.count-1, section: 0)
                 collectionView?.insertItems(at: [newIndexPath])
                 collectionView?.scrollToItem(at: newIndexPath,
-                                             at: UICollectionViewScrollPosition.top,
+                                             at: UICollectionViewScrollPosition.bottom,
                                              animated: true)
                 
                 inputContainerView.inputTextArea.text = nil
@@ -166,7 +158,6 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     // MARK: Helper methods
-    
     func fillTextMessages() {
         var count = 0
         messages.forEach { (message) in
