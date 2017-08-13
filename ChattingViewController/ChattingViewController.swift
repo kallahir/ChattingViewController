@@ -44,6 +44,7 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     lazy var inputContainerView: InputAccessoryView = {
         let view = InputAccessoryView()
         view.chattingViewController = self
+        view.numberOfLines = 5
         return view
     }()
     

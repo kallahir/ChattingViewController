@@ -9,7 +9,7 @@ ChattingViewController is a project that will create a chat framework that can b
  - Create properties to customize bubble propeties;
  - ~~Improve the message insertion area;~~ [DONE]
  - ~~Polish input acessory view used and input text area;~~ [DONE]
- - Limit input text view height;
+ - ~~Limit input text view height;~~ [DONE]
 
 ## Known Issues
 

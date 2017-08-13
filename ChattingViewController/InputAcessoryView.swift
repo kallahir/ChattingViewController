@@ -10,11 +10,20 @@ import UIKit
 
 class InputAccessoryView: UIView, UITextViewDelegate {
     
+    private let initialHeight: CGFloat = 51.5
+    private let lineHeight: CGFloat = 15.2
+    
     weak var chattingViewController: ChattingViewController? {
         didSet {
             self.sendButton.addTarget(self.chattingViewController, action: #selector(ChattingViewController.send), for: .touchUpInside)
         }
     }
+    
+    var numberOfLines: CGFloat = 0
+    
+    lazy var maxHeight: CGFloat = {
+        return (self.numberOfLines * self.lineHeight) + self.initialHeight
+    }()
     
     lazy var inputTextArea: UITextView = {
         let textArea = UITextView()
@@ -51,7 +60,7 @@ class InputAccessoryView: UIView, UITextViewDelegate {
         
         self.addSubview(self.sendButton)
         self.sendButton.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        self.sendButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        self.sendButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4).isActive = true
         self.sendButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         self.sendButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
@@ -74,6 +83,15 @@ class InputAccessoryView: UIView, UITextViewDelegate {
 
     override var intrinsicContentSize: CGSize {
         get{
+            // TODO: FIX MAX HEIGHT CALCULATION
+            if self.bounds.height > self.maxHeight {
+                self.inputTextArea.isScrollEnabled = true
+                let textSize = self.inputTextArea.sizeThatFits(CGSize(width: self.inputTextArea.bounds.width, height: CGFloat.greatestFiniteMagnitude))
+                if textSize.height > self.maxHeight {
+                    return CGSize(width: self.bounds.width, height: self.bounds.height)
+                }
+            }
+            self.inputTextArea.isScrollEnabled = false
             let textSize = self.inputTextArea.sizeThatFits(CGSize(width: self.inputTextArea.bounds.width, height: CGFloat.greatestFiniteMagnitude))
             return CGSize(width: self.bounds.width, height: textSize.height)
         }
