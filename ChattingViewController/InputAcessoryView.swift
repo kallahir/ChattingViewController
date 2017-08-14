@@ -42,6 +42,8 @@ class InputAccessoryView: UIView, UITextViewDelegate {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: "send"), for: .normal)
+        button.alpha = 0.5
+        button.isEnabled = false
         return button
     }()
     
@@ -99,6 +101,14 @@ class InputAccessoryView: UIView, UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         self.invalidateIntrinsicContentSize()
+        let cleanMessage = textView.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !cleanMessage.isEmpty {
+            self.sendButton.isEnabled = true
+            self.sendButton.alpha = 1.0
+        } else {
+            self.sendButton.isEnabled = false
+            self.sendButton.alpha = 0.5
+        }
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

@@ -78,8 +78,8 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
     
     func send() {
         if let message = inputContainerView.inputTextArea.text {
-            if !message.isEmpty {
-                let cleanMessage = message.trimmingCharacters(in: .whitespacesAndNewlines)
+            let cleanMessage = message.trimmingCharacters(in: .whitespacesAndNewlines)
+            if !cleanMessage.isEmpty {
                 textMessages.append(TextMessage(msgId: "-1",
                                                 msgTimestamp: Date(),
                                                 content: cleanMessage,
@@ -91,10 +91,12 @@ class ChattingViewController: UICollectionViewController, UICollectionViewDelega
                 collectionView?.scrollToItem(at: newIndexPath,
                                              at: UICollectionViewScrollPosition.bottom,
                                              animated: true)
-                
-                inputContainerView.inputTextArea.text = nil
-                inputContainerView.invalidateIntrinsicContentSize()
             }
+            inputContainerView.inputTextArea.isScrollEnabled = false
+            inputContainerView.inputTextArea.text = nil
+            inputContainerView.sendButton.isEnabled = false
+            inputContainerView.sendButton.alpha = 0.5
+            inputContainerView.invalidateIntrinsicContentSize()
         }
     }
     
